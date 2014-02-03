@@ -1,0 +1,50 @@
+<center>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <h1><%= @micropost.content %></h1>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @micropost.user_id %>
+</p>
+
+<h2>Comments</h2>
+<% @micropost.comments.each do |comment| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+  </p>
+ 
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+
+  <p>
+  <%= link_to 'Destroy Comment', [comment.micropost, comment],
+               method: :delete,
+               data: { confirm: 'Are you sure?' } %>
+  </p>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= form_for([@micropost, @micropost.comments.build]) do |f| %>
+  <p>
+    <%= f.label :commenter %><br />
+    <%= f.text_field :commenter %>
+  </p>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_micropost_path(@micropost) %> |
+<%= link_to 'Back', microposts_path %>
+</center>
